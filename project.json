@@ -1,0 +1,21 @@
+{
+  "overview": "A comprehensive School Management System for administrators to manage student profiles, fee structures, payments, and teacher attendance — all behind a secure admin login.",
+  "features": [
+    "Admin login with all routes protected",
+    "Student profiles with full details, search, and class-wise organization",
+    "Fee structures and payment tracking with sibling fee bundling",
+    "Printable fee receipts with no navigation chrome",
+    "Teacher attendance tracking with daily present/absent toggles",
+    "Dashboard with overview stats (students, classes, teachers, pending fees)"
+  ],
+  "category": "productivity",
+  "tags": [
+    "school",
+    "management",
+    "admin",
+    "students",
+    "fees",
+    "attendance"
+  ],
+  "last_updated": "2026-04-23T02:17:32.513Z"
+}

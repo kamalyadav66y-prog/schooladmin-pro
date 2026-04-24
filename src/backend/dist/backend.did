@@ -1,0 +1,166 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type TeacherInput = 
+ record {
+   classAssigned: text;
+   name: text;
+   subject: text;
+ };
+type TeacherId = nat;
+type Teacher = 
+ record {
+   classAssigned: text;
+   createdAt: Timestamp;
+   id: TeacherId;
+   name: text;
+   subject: text;
+ };
+type StudentInput = 
+ record {
+   address: text;
+   classGrade: text;
+   dob: text;
+   name: text;
+   parentContact: text;
+   parentEmail: text;
+   parentName: text;
+   rollNumber: text;
+   siblingGroupId: opt SiblingGroupId;
+ };
+type StudentId = nat;
+type Student = 
+ record {
+   address: text;
+   classGrade: text;
+   createdAt: Timestamp;
+   dob: text;
+   id: StudentId;
+   name: text;
+   parentContact: text;
+   parentEmail: text;
+   parentName: text;
+   rollNumber: text;
+   siblingGroupId: opt SiblingGroupId;
+ };
+type SiblingGroupId = nat;
+type PaymentId = nat;
+type FeeStructureInput = 
+ record {
+   activityFee: nat;
+   classGrade: text;
+   effectiveFrom: text;
+   otherFee: nat;
+   transportFee: nat;
+   tuitionFee: nat;
+ };
+type FeeStructureId = nat;
+type FeeStructure = 
+ record {
+   activityFee: nat;
+   classGrade: text;
+   effectiveFrom: text;
+   id: FeeStructureId;
+   otherFee: nat;
+   transportFee: nat;
+   tuitionFee: nat;
+ };
+type FeePaymentInput = 
+ record {
+   activityPaid: nat;
+   month: nat;
+   otherPaid: nat;
+   paymentDate: text;
+   studentId: StudentId;
+   totalDue: nat;
+   transportPaid: nat;
+   tuitionPaid: nat;
+   year: nat;
+ };
+type FeePayment = 
+ record {
+   activityPaid: nat;
+   balance: nat;
+   createdAt: Timestamp;
+   id: PaymentId;
+   month: nat;
+   otherPaid: nat;
+   paymentDate: text;
+   receiptNumber: text;
+   studentId: StudentId;
+   totalDue: nat;
+   totalPaid: nat;
+   transportPaid: nat;
+   tuitionPaid: nat;
+   year: nat;
+ };
+type AttendanceStatus = 
+ variant {
+   absent;
+   present;
+ };
+type AttendanceInput = 
+ record {
+   date: text;
+   notes: text;
+   status: AttendanceStatus;
+   teacherId: TeacherId;
+ };
+type AttendanceId = nat;
+type Attendance = 
+ record {
+   createdAt: Timestamp;
+   date: text;
+   id: AttendanceId;
+   notes: text;
+   status: AttendanceStatus;
+   teacherId: TeacherId;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  addAttendance: (input: AttendanceInput) -> (AttendanceId);
+  addFeePayment: (input: FeePaymentInput) -> (PaymentId);
+  addFeeStructure: (input: FeeStructureInput) -> (FeeStructureId);
+  addStudent: (input: StudentInput) -> (StudentId);
+  addTeacher: (input: TeacherInput) -> (TeacherId);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  deleteAttendance: (id: AttendanceId) -> (bool);
+  deleteFeePayment: (id: PaymentId) -> (bool);
+  deleteFeeStructure: (id: FeeStructureId) -> (bool);
+  deleteStudent: (id: StudentId) -> (bool);
+  deleteTeacher: (id: TeacherId) -> (bool);
+  getAttendance: (id: AttendanceId) -> (opt Attendance) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getFeePayment: (id: PaymentId) -> (opt FeePayment) query;
+  getFeeStructure: (id: FeeStructureId) -> (opt FeeStructure) query;
+  getFeeStructureByClass: (classGrade: text) -> (opt FeeStructure) query;
+  getReceiptData: (id: PaymentId) -> (opt FeePayment) query;
+  getSiblingGroupFeeTotal: (siblingGroupId: SiblingGroupId, _month: nat,
+   _year: nat) -> (nat) query;
+  getStudent: (id: StudentId) -> (opt Student) query;
+  getTeacher: (id: TeacherId) -> (opt Teacher) query;
+  isCallerAdmin: () -> (bool) query;
+  listAttendances: () -> (vec Attendance) query;
+  listAttendancesByDate: (date: text) -> (vec Attendance) query;
+  listAttendancesByTeacher: (teacherId: TeacherId) -> (vec Attendance) query;
+  listFeePayments: () -> (vec FeePayment) query;
+  listFeePaymentsByStudent: (studentId: StudentId) -> (vec FeePayment) query;
+  listFeeStructures: () -> (vec FeeStructure) query;
+  listStudents: () -> (vec Student) query;
+  listStudentsByClass: (classGrade: text) -> (vec Student) query;
+  listStudentsByParentContact: (contact: text) -> (vec Student) query;
+  listStudentsBySiblingGroup: (siblingGroupId: SiblingGroupId) ->
+   (vec Student) query;
+  listTeachers: () -> (vec Teacher) query;
+  searchStudents: (term: text) -> (vec Student) query;
+  updateAttendance: (id: AttendanceId, input: AttendanceInput) -> (bool);
+  updateFeePayment: (id: PaymentId, input: FeePaymentInput) -> (bool);
+  updateFeeStructure: (id: FeeStructureId, input: FeeStructureInput) ->
+   (bool);
+  updateStudent: (id: StudentId, input: StudentInput) -> (bool);
+  updateTeacher: (id: TeacherId, input: TeacherInput) -> (bool);
+}

@@ -1,0 +1,127 @@
+// Version: 1.0.0
+type AttendanceId__91187254 = Nat;
+type AttendanceStatus__891337621 = {#absent; #present};
+type Attendance__577293858 =
+  {
+    createdAt : Timestamp__301639476;
+    date : Text;
+    id : AttendanceId__91187254;
+    notes : Text;
+    status : AttendanceStatus__891337621;
+    teacherId : TeacherId__977536047
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type FeePayment__329188456 =
+  {
+    activityPaid : Nat;
+    balance : Nat;
+    createdAt : Timestamp__301639476;
+    id : PaymentId__1028686908;
+    month : Nat;
+    otherPaid : Nat;
+    paymentDate : Text;
+    receiptNumber : Text;
+    studentId : StudentId__585118929;
+    totalDue : Nat;
+    totalPaid : Nat;
+    transportPaid : Nat;
+    tuitionPaid : Nat;
+    year : Nat
+  };
+type FeeStructureId__947360498 = Nat;
+type FeeStructure__379916430 =
+  {
+    activityFee : Nat;
+    classGrade : Text;
+    effectiveFrom : Text;
+    id : FeeStructureId__947360498;
+    otherFee : Nat;
+    transportFee : Nat;
+    tuitionFee : Nat
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type PaymentId__1028686908 = Nat;
+type SiblingGroupId__18432406 = Nat;
+type StudentId__585118929 = Nat;
+type Student__993305480 =
+  {
+    address : Text;
+    classGrade : Text;
+    createdAt : Timestamp__301639476;
+    dob : Text;
+    id : StudentId__585118929;
+    name : Text;
+    parentContact : Text;
+    parentEmail : Text;
+    parentName : Text;
+    rollNumber : Text;
+    siblingGroupId : ?SiblingGroupId__18432406
+  };
+type TeacherId__977536047 = Nat;
+type Teacher__146217806 =
+  {
+    classAssigned : Text;
+    createdAt : Timestamp__301639476;
+    id : TeacherId__977536047;
+    name : Text;
+    subject : Text
+  };
+type Timestamp__301639476 = Int;
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable attendances :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Attendance__577293858]];
+      var elementIndex : Nat__490723111
+    };
+  stable counters :
+    {
+      var nextAttendanceId : Nat;
+      var nextFeeStructureId : Nat;
+      var nextPaymentId : Nat;
+      var nextSiblingGroupId : Nat;
+      var nextStudentId : Nat;
+      var nextTeacherId : Nat
+    };
+  stable feePayments :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?FeePayment__329188456]];
+      var elementIndex : Nat__490723111
+    };
+  stable feeStructures :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?FeeStructure__379916430]];
+      var elementIndex : Nat__490723111
+    };
+  stable students :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Student__993305480]];
+      var elementIndex : Nat__490723111
+    };
+  stable teachers :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Teacher__146217806]];
+      var elementIndex : Nat__490723111
+    }
+};

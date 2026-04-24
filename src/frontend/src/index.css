@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "DM Sans";
+    --font-body: "General Sans";
+    --font-mono: "Geist Mono";
+    --radius: 0.5rem;
+
+    --background: 0.98 0.01 261;
+    --foreground: 0.18 0.02 261;
+    --card: 0.99 0 0;
+    --card-foreground: 0.18 0.02 261;
+    --popover: 0.99 0 0;
+    --popover-foreground: 0.18 0.02 261;
+
+    --primary: 0.52 0.08 261;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.93 0.02 261;
+    --secondary-foreground: 0.25 0.02 261;
+    --muted: 0.93 0.02 261;
+    --muted-foreground: 0.55 0.02 261;
+
+    --accent: 0.72 0.13 142;
+    --accent-foreground: 0.98 0 0;
+
+    --success: 0.65 0.12 145;
+    --success-foreground: 0.98 0 0;
+
+    --warning: 0.75 0.15 65;
+    --warning-foreground: 0.98 0 0;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.92 0.01 261;
+    --input: 0.96 0.01 261;
+    --ring: 0.52 0.08 261;
+
+    --chart-1: 0.52 0.08 261;
+    --chart-2: 0.72 0.13 142;
+    --chart-3: 0.65 0.08 355;
+    --chart-4: 0.6 0.08 55;
+    --chart-5: 0.75 0.08 30;
+
+    --sidebar: 0.98 0.01 261;
+    --sidebar-foreground: 0.18 0.02 261;
+    --sidebar-primary: 0.52 0.08 261;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.93 0.02 261;
+    --sidebar-accent-foreground: 0.25 0.02 261;
+    --sidebar-border: 0.92 0.01 261;
+    --sidebar-ring: 0.52 0.08 261;
+  }
+
+  .dark {
+    --background: 0.14 0.01 261;
+    --foreground: 0.93 0.01 261;
+    --card: 0.19 0.01 261;
+    --card-foreground: 0.93 0.01 261;
+    --popover: 0.24 0.01 261;
+    --popover-foreground: 0.93 0.01 261;
+
+    --primary: 0.68 0.12 261;
+    --primary-foreground: 0.14 0.01 261;
+
+    --secondary: 0.24 0.01 261;
+    --secondary-foreground: 0.82 0.01 261;
+    --muted: 0.24 0.01 261;
+    --muted-foreground: 0.58 0.01 261;
+
+    --accent: 0.78 0.15 142;
+    --accent-foreground: 0.14 0.01 261;
+
+    --success: 0.72 0.14 145;
+    --success-foreground: 0.14 0.01 261;
+
+    --warning: 0.78 0.16 65;
+    --warning-foreground: 0.14 0.01 261;
+
+    --destructive: 0.65 0.19 22;
+    --destructive-foreground: 0.14 0.01 261;
+
+    --border: 0.28 0.01 261;
+    --input: 0.28 0.01 261;
+    --ring: 0.68 0.12 261;
+
+    --chart-1: 0.68 0.12 261;
+    --chart-2: 0.78 0.15 142;
+    --chart-3: 0.72 0.1 355;
+    --chart-4: 0.65 0.1 55;
+    --chart-5: 0.75 0.1 30;
+
+    --sidebar: 0.19 0.01 261;
+    --sidebar-foreground: 0.93 0.01 261;
+    --sidebar-primary: 0.68 0.12 261;
+    --sidebar-primary-foreground: 0.14 0.01 261;
+    --sidebar-accent: 0.24 0.01 261;
+    --sidebar-accent-foreground: 0.82 0.01 261;
+    --sidebar-border: 0.28 0.01 261;
+    --sidebar-ring: 0.68 0.12 261;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  @font-face {
+    font-family: "DM Sans";
+    src: url("/assets/fonts/DMSans.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "General Sans";
+    src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Geist Mono";
+    src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+  }
+
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-subtle {
+    @apply border-l-4 border-l-primary shadow-card;
+  }
+
+  .stat-card {
+    @apply bg-card p-6 rounded-lg border border-border shadow-sm;
+  }
+
+  .table-row-hover {
+    @apply hover:bg-secondary/50 transition-smooth cursor-pointer;
+  }
+
+  .attendance-badge-present {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success;
+  }
+
+  .attendance-badge-absent {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive;
+  }
+
+  .fee-status-paid {
+    @apply text-success font-medium;
+  }
+
+  .fee-status-pending {
+    @apply text-warning font-medium;
+  }
+
+  .fee-status-overdue {
+    @apply text-destructive font-medium;
+  }
+
+  @media print {
+    nav,
+    aside,
+    .no-print {
+      display: none !important;
+    }
+    body {
+      background: white;
+      color: black;
+    }
+  }
+}
